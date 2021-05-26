@@ -3,7 +3,12 @@ import SfImage from "./SfImage.vue";
 
 describe("SfImage.vue", () => {
   it("renders a component", () => {
-    const component = shallowMount(SfImage);
-    expect(component.contains(".sf-image")).toBe(true);
+    const component = shallowMount(SfImage, {
+      propsData: {
+        alt: "test",
+        src: "test",
+      },
+    });
+    expect(component.classes("sf-image--wrapper")).toBe(true);
   });
 });

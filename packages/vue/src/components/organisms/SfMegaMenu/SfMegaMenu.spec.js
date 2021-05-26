@@ -12,10 +12,8 @@ describe("SfMegaMenu.vue", () => {
     const msg = "Mega Menu";
 
     const component = shallowMount(SfMegaMenu, {
-      slots: {
-        default: msg
-      }
+      propsData: { visible: true },
     });
-    expect(component.find(".sf-mega-menu").text()).toMatch(msg);
+    expect(component.find(".sf-mega-menu").exists()).toBe(true);
   });
 });

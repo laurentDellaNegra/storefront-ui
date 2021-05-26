@@ -5,7 +5,7 @@ import SfTopBar from "./SfTopBar.vue";
 describe("SfTopBar", () => {
   it("renders a container element", () => {
     const component = shallowMount(SfTopBar, {});
-    expect(component.contains(".sf-topbar")).toBe(true);
+    expect(component.classes("sf-top-bar")).toBe(true);
   });
 
   // Left slot check
@@ -14,11 +14,10 @@ describe("SfTopBar", () => {
 
     const component = shallowMount(SfTopBar, {
       slots: {
-        left: leftContent
-      }
+        left: leftContent,
+      },
     });
-
-    expect(component.find(".sf-topbar__left").text()).toMatch(leftContent);
+    expect(component.find(".sf-top-bar__left").text()).toMatch(leftContent);
   });
 
   // Right slot check
@@ -27,10 +26,9 @@ describe("SfTopBar", () => {
 
     const component = shallowMount(SfTopBar, {
       slots: {
-        right: rightContent
-      }
+        right: rightContent,
+      },
     });
-
-    expect(component.find(".sf-topbar__right").text()).toMatch(rightContent);
+    expect(component.find(".sf-top-bar__right").text()).toMatch(rightContent);
   });
 });

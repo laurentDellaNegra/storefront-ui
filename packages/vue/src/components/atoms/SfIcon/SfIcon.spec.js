@@ -4,7 +4,7 @@ import SfIcon from "./SfIcon.vue";
 describe("SfIcon.vue", () => {
   it("renders a component", () => {
     const component = shallowMount(SfIcon);
-    expect(component.contains(".sf-icon")).toBe(true);
+    expect(component.classes("sf-icon")).toBe(true);
   });
 
   it("renders default slot with image", () => {
@@ -24,8 +24,8 @@ describe("SfIcon.vue", () => {
 
     const component = shallowMount(SfIcon, {
       propsData: {
-        icon: path
-      }
+        icon: path,
+      },
     });
 
     expect(component.find("path").attributes("d")).toEqual(path);
@@ -36,32 +36,28 @@ describe("SfIcon.vue", () => {
 
     const component = shallowMount(SfIcon, {
       propsData: {
-        size: size
-      }
+        size: size,
+      },
     });
-
-    expect(component.contains(`.sf-icon--size-${size}`)).toBe(true);
+    expect(component.classes(`size-${size}`)).toBe(true);
   });
 
   it("renders sf-color when passed", () => {
-    const color = "primary";
-
+    const color = "green-primary";
     const component = shallowMount(SfIcon, {
       propsData: {
-        color: color
-      }
+        color: color,
+      },
     });
-
-    expect(component.contains(`.sf-icon--color-${color}`)).toBe(true);
+    expect(component.classes(`color-${color}`)).toBe(true);
   });
 
   it("renders viewBox default when not passed", () => {
-    const color = "primary";
-
+    const color = "green-primary";
     const component = shallowMount(SfIcon, {
       propsData: {
-        color: color
-      }
+        color: color,
+      },
     });
 
     expect(component.find("svg").attributes("viewBox")).toEqual("0 0 24 24");
@@ -72,8 +68,8 @@ describe("SfIcon.vue", () => {
 
     const component = shallowMount(SfIcon, {
       propsData: {
-        viewBox: viewBox
-      }
+        viewBox: viewBox,
+      },
     });
 
     expect(component.find("svg").attributes("viewBox")).toEqual(viewBox);

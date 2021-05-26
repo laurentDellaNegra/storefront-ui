@@ -1,14 +1,14 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import { storiesOf } from "@storybook/vue";
 import Category from "./Category";
+export default {
+  title: "Pages/Category",
+  component: Category,
+};
 
-storiesOf("Pages|Category", module).add("Default", () => ({
+const Template = (args, { argTypes }) => ({
   components: { Category },
-  mounted() {
-    document.body.style.setProperty("margin", "0");
-  },
-  beforeDestroy() {
-    document.body.style.removeProperty("margin");
-  },
-  template: `<Category />`
-}));
+  props: Object.keys(argTypes),
+  template: `<Category />`,
+});
+
+export const Common = Template.bind({});
+Common.args = {};

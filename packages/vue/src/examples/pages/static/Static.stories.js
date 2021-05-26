@@ -1,14 +1,14 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import { storiesOf } from "@storybook/vue";
 import Static from "./Static";
+export default {
+  title: "Pages/Static",
+  component: Static,
+};
 
-storiesOf("Pages|Static", module).add("Default", () => ({
+const Template = (args, { argTypes }) => ({
   components: { Static },
-  mounted() {
-    document.body.style.setProperty("margin", "0");
-  },
-  beforeDestroy() {
-    document.body.style.removeProperty("margin");
-  },
-  template: `<Static />`
-}));
+  props: Object.keys(argTypes),
+  template: `<Static />`,
+});
+
+export const Common = Template.bind({});
+Common.args = {};

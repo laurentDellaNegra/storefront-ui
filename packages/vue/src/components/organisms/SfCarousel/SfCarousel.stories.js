@@ -1,140 +1,71 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import { storiesOf } from "@storybook/vue";
-import { withKnobs } from "@storybook/addon-knobs";
-import SfCarousel from "./SfCarousel.vue";
-
-const data = () => {
-  return {
-    style: {
-      color: "#FFF",
-      display: "flex",
-      "justify-content": "center",
-      "font-size": "3rem",
-      "align-items": "center",
-      height: "300px",
-      "background-color": "#5ECE7B"
+import { SfCarousel } from "@storefront-ui/vue";
+export default {
+  title: "Components/Organisms/Carousel",
+  component: SfCarousel,
+  argTypes: {
+    settings: {
+      control: "object",
+      table: {
+        category: "Props",
+        defaultValue: {
+          summary: `{}`,
+        },
+      },
+      defaultValue: {},
     },
-    options: {
-      perView: 4
-    }
-  };
+  },
 };
 
-storiesOf("Organisms|Carousel", module)
-  .addDecorator(withKnobs)
-  .add("Common", () => ({
-    components: { SfCarousel },
-    data,
-    template: `
-      <div style="max-width: 1140px">
-        <SfCarousel :options="options">
-          <SfCarouselItem>
-            <div :style="style">1</div>
-          </SfCarouselItem>
-          <SfCarouselItem>
-            <div :style="style">2</div>
-          </SfCarouselItem>
-          <SfCarouselItem>
-            <div :style="style">3</div>
-          </SfCarouselItem>
-          <SfCarouselItem>
-            <div :style="style">4</div>
-          </SfCarouselItem>
-          <SfCarouselItem>
-            <div :style="style">5</div>
-          </SfCarouselItem>
-          <SfCarouselItem>
-            <div :style="style">6</div>
-          </SfCarouselItem>
-          <SfCarouselItem>
-            <div :style="style">7</div>
-          </SfCarouselItem>
-          <SfCarouselItem>
-            <div :style="style">8</div>
-          </SfCarouselItem>
-        </SfCarousel>
+const Template = (args, { argTypes }) => ({
+  components: { SfCarousel },
+  props: Object.keys(argTypes),
+  template: `
+  <SfCarousel
+  :style="{maxWidth: '1140px', margin: 'auto'}"
+  >
+    <SfCarouselItem v-for="(item, i) in 12" :key="i">
+      <div style="display: flex; align-items: center; justify-content: center; height: 300px; background-color: #5ECE7B; color: #FFF; font-size: 2.5rem">
+        {{item}}
       </div>
-      `
-  }))
-  .add("[slot] prev", () => ({
-    components: { SfCarousel },
-    data,
-    template: `
-      <div style="max-width: 1140px">
-        <SfCarousel :options="options">
-          <SfCarouselItem>
-            <div :style="style">1</div>
-          </SfCarouselItem>
-          <SfCarouselItem>
-            <div :style="style">2</div>
-          </SfCarouselItem>
-          <SfCarouselItem>
-            <div :style="style">3</div>
-          </SfCarouselItem>
-          <SfCarouselItem>
-            <div :style="style">4</div>
-          </SfCarouselItem>
-          <SfCarouselItem>
-            <div :style="style">5</div>
-          </SfCarouselItem>
-          <SfCarouselItem>
-            <div :style="style">6</div>
-          </SfCarouselItem>
-          <SfCarouselItem>
-            <div :style="style">7</div>
-          </SfCarouselItem>
-          <SfCarouselItem>
-            <div :style="style">8</div>
-          </SfCarouselItem>
+    </SfCarouselItem>
+  </SfCarousel>`,
+});
 
-          <template v-slot:prev="{ go }">
-            <div @click="go">
-              <span style="margin: 12px; cursor: pointer; font-weight: 900; font-size: 18px;">&lt; PREV</span>
-            </div>
-          </template>
+export const Common = Template.bind({});
+Common.args = {};
 
-        </SfCarousel>
+export const UseNextSlot = (args, { argTypes }) => ({
+  components: { SfCarousel },
+  props: Object.keys(argTypes),
+  template: `
+  <SfCarousel
+  :style="{maxWidth: '1140px', margin: 'auto'}"
+  >
+    <template #next="{go}">
+      <button @click="go">NEXT</button>
+    </template>
+    <SfCarouselItem v-for="(item, i) in 12" :key="i">
+      <div style="display: flex; align-items: center; justify-content: center; height: 300px; background-color: #5ECE7B; color: #FFF; font-size: 2.5rem">
+        {{item}}
       </div>
-      `
-  }))
-  .add("[slot] next", () => ({
-    components: { SfCarousel },
-    data,
-    template: `
-      <div style="max-width: 1140px">
-        <SfCarousel :options="options">
-          <SfCarouselItem>
-            <div :style="style">1</div>
-          </SfCarouselItem>
-          <SfCarouselItem>
-            <div :style="style">2</div>
-          </SfCarouselItem>
-          <SfCarouselItem>
-            <div :style="style">3</div>
-          </SfCarouselItem>
-          <SfCarouselItem>
-            <div :style="style">4</div>
-          </SfCarouselItem>
-          <SfCarouselItem>
-            <div :style="style">5</div>
-          </SfCarouselItem>
-          <SfCarouselItem>
-            <div :style="style">6</div>
-          </SfCarouselItem>
-          <SfCarouselItem>
-            <div :style="style">7</div>
-          </SfCarouselItem>
-          <SfCarouselItem>
-            <div :style="style">8</div>
-          </SfCarouselItem>
+    </SfCarouselItem>
+  </SfCarousel>`,
+});
 
-          <template v-slot:next="{ go }">
-            <div @click="go">
-              <span style="margin: 12px; cursor: pointer; font-weight: 900; font-size: 18px;">NEXT &gt;</span>
-            </div>
-          </template>
-
-        </SfCarousel>
+export const UsePrevSlot = (args, { argTypes }) => ({
+  components: { SfCarousel },
+  props: Object.keys(argTypes),
+  template: `
+  <SfCarousel
+  :style="{maxWidth: '1140px', margin: 'auto'}"
+  >
+    <template #prev="{go}">
+      <button @click="go">PREV</button>
+    </template>
+    <SfCarouselItem v-for="(item, i) in 12" :key="i">
+      <div style="display: flex; align-items: center; justify-content: center; height: 300px; background-color: #5ECE7B; color: #FFF; font-size: 2.5rem">
+        {{item}}
       </div>
-      `
-  }));
+    </SfCarouselItem>
+  </SfCarousel>`,
+});

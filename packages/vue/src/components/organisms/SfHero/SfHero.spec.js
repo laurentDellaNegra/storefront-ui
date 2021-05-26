@@ -2,6 +2,7 @@ import { shallowMount } from "@vue/test-utils";
 import SfHero from "./SfHero.vue";
 import SfHeroItem from "./_internal/SfHeroItem.vue";
 import SfArrow from "../../atoms/SfArrow/SfArrow.vue";
+import SfButton from "../../atoms/SfButton/SfButton.vue";
 import SfBullets from "../../atoms/SfBullets/SfBullets.vue";
 
 const items = [
@@ -10,22 +11,22 @@ const items = [
     subtitle: "subtitle_1",
     buttonText: "button_1",
     background: "#eceff1",
-    image: "https://i.ibb.co/6HS24vc/hero-bg-removebg-preview.png"
+    image: "https://i.ibb.co/6HS24vc/hero-bg-removebg-preview.png",
   },
   {
     title: "title_2",
     subtitle: "subtitle_2",
     buttonText: "button_2",
     background: "#eceff1",
-    image: "https://i.ibb.co/6HS24vc/hero-bg-removebg-preview.png"
+    image: "https://i.ibb.co/6HS24vc/hero-bg-removebg-preview.png",
   },
   {
     title: "title_3",
     subtitle: "subtitle_3",
     buttonText: "button_3",
     background: "#eceff1",
-    image: "https://i.ibb.co/6HS24vc/hero-bg-removebg-preview.png"
-  }
+    image: "https://i.ibb.co/6HS24vc/hero-bg-removebg-preview.png",
+  },
 ];
 
 const defaultSlot = `
@@ -47,11 +48,11 @@ describe("SfHero.vue", () => {
     beforeEach(() => {
       component = shallowMount(SfHero, {
         mocks: {
-          items
+          items,
         },
         slots: {
-          default: defaultSlot
-        }
+          default: defaultSlot,
+        },
       });
     });
 
@@ -60,39 +61,21 @@ describe("SfHero.vue", () => {
     });
 
     it("renders a component", () => {
-      expect(component.contains(".sf-hero")).toBe(true);
+      expect(component.classes("sf-hero")).toBe(true);
     });
 
     it("renders three SfHeroItem components when passed three items", () => {
-      expect(component.findAll(SfHeroItem)).toHaveLength(items.length);
+      expect(component.findAllComponents(SfHeroItem)).toHaveLength(
+        items.length
+      );
     });
 
     it("renders two SfArrow components", () => {
-      expect(component.findAll(SfArrow)).toHaveLength(2);
+      expect(component.findAllComponents(SfArrow)).toHaveLength(2);
     });
 
     it("renders SfBullets component", () => {
-      expect(component.findAll(SfBullets)).toHaveLength(1);
-    });
-
-    it("calls #go with 'prev' when clicked on left arrow", () => {
-      jest.spyOn(component.vm, "go");
-      expect(component.vm.go).not.toHaveBeenCalled();
-      component
-        .findAll(SfArrow)
-        .at(0)
-        .trigger("click");
-      expect(component.vm.go).toHaveBeenCalledWith("prev");
-    });
-
-    it("calls #go with 'next' when clicked on right arrow", () => {
-      jest.spyOn(component.vm, "go");
-      expect(component.vm.go).not.toHaveBeenCalled();
-      component
-        .findAll(SfArrow)
-        .at(1)
-        .trigger("click");
-      expect(component.vm.go).toHaveBeenCalledWith("next");
+      expect(component.findAllComponents(SfBullets)).toHaveLength(1);
     });
   });
 
@@ -101,15 +84,15 @@ describe("SfHero.vue", () => {
     beforeEach(() => {
       component = shallowMount(SfHero, {
         mocks: {
-          items
+          items,
         },
         slots: {
-          default: defaultSlot
+          default: defaultSlot,
         },
         scopedSlots: {
           prev: `<button class="forPrevSlot" @click="props.go()"></button>`,
-          next: `<button class='forNextSlot' @click="props.go()"></button>`
-        }
+          next: `<button class='forNextSlot' @click="props.go()"></button>`,
+        },
       });
     });
 
@@ -120,9 +103,9 @@ describe("SfHero.vue", () => {
     it("renders 'prev' and 'next' slots instead of SfArrow", () => {
       jest.spyOn(component.vm, "go");
       expect(component.vm.go).not.toHaveBeenCalled();
-      expect(component.findAll(".forPrevSlot")).toHaveLength(1);
-      expect(component.findAll(".forNextSlot")).toHaveLength(1);
-      expect(component.findAll(SfArrow)).toHaveLength(0);
+      expect(component.find(".forPrevSlot").exists()).toBe(true);
+      expect(component.find(".forNextSlot").exists()).toBe(true);
+      expect(component.findAllComponents(SfArrow)).toHaveLength(0);
     });
 
     it("calls #go with 'prev' when clicked on 'prev' slot", () => {
@@ -145,11 +128,11 @@ describe("SfHero.vue", () => {
     beforeEach(() => {
       component = shallowMount(SfHero, {
         mocks: {
-          items: [items[0]]
+          items: [items[0]],
         },
         slots: {
-          default: defaultSlot
-        }
+          default: defaultSlot,
+        },
       });
     });
 
@@ -158,11 +141,11 @@ describe("SfHero.vue", () => {
     });
 
     it("doesn't render any SfArrow components if only one item passed as prop", () => {
-      expect(component.findAll(SfArrow)).toHaveLength(0);
+      expect(component.findAllComponents(SfArrow)).toHaveLength(0);
     });
 
     it("doesn't render SfBullets component if only one item passed as prop", () => {
-      expect(component.findAll(SfBullets)).toHaveLength(0);
+      expect(component.findAllComponents(SfBullets)).toHaveLength(0);
     });
   });
 
@@ -170,10 +153,10 @@ describe("SfHero.vue", () => {
     it("renders SfHeroItem component", () => {
       const component = shallowMount(SfHero, {
         slots: {
-          default: "<SfHeroItem></SfHeroItem>"
-        }
+          default: "<SfHeroItem></SfHeroItem>",
+        },
       });
-      expect(component.findAll(SfHeroItem)).toHaveLength(1);
+      expect(component.findAllComponents(SfHeroItem)).toHaveLength(1);
     });
   });
 });

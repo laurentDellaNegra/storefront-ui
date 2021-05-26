@@ -4,7 +4,7 @@ import SfCircleIcon from "./SfCircleIcon.vue";
 describe.only("SfCircleIcon.vue", () => {
   it("renders a button", () => {
     const component = shallowMount(SfCircleIcon);
-    expect(component.contains(".sf-circle-icon")).toBe(true);
+    expect(component.classes("sf-circle-icon")).toBe(true);
   });
 
   it("renders default slot with image", () => {

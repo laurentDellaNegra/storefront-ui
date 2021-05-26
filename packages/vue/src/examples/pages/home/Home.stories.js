@@ -1,14 +1,14 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import { storiesOf } from "@storybook/vue";
 import Home from "./Home";
+export default {
+  title: "Pages/Home",
+  component: Home,
+};
 
-storiesOf("Pages|Home", module).add("Default", () => ({
+const Template = (args, { argTypes }) => ({
   components: { Home },
-  mounted() {
-    document.body.style.setProperty("margin", "0");
-  },
-  beforeDestroy() {
-    document.body.style.removeProperty("margin");
-  },
-  template: `<Home />`
-}));
+  props: Object.keys(argTypes),
+  template: `<Home />`,
+});
+
+export const Common = Template.bind({});
+Common.args = {};

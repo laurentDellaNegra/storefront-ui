@@ -1,5 +1,5 @@
 # component-description
-Heading component for titles with optional subtitles
+Heading component for titles with optional description
 
 # common-usage
 <br>

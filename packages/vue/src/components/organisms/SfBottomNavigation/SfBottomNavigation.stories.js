@@ -1,46 +1,63 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import { storiesOf } from "@storybook/vue";
-import { withKnobs, optionsKnob as options } from "@storybook/addon-knobs";
+import { SfBottomNavigation, SfCircleIcon, SfIcon } from "@storefront-ui/vue";
+export default {
+  title: "Components/Organisms/BottomNavigation",
+  component: SfBottomNavigation,
+};
 
-import SfIcon from "../../atoms/SfIcon/SfIcon.vue";
-import SfCircleIcon from "../../atoms/SfCircleIcon/SfCircleIcon.vue";
-import SfBottomNavigation from "./SfBottomNavigation.vue";
+const Template = (args, { argTypes }) => ({
+  components: { SfBottomNavigation },
+  props: Object.keys(argTypes),
+  data() {
+    return {
+      items: [
+        {
+          icon: "menu",
+          iconActive: "menu",
+          label: "Menu",
+        },
+        {
+          icon: "heart",
+          iconActive: "heart",
+          label: "Heart",
+        },
+        {
+          icon: "account",
+          iconActive: "account",
+          label: "Profile",
+        },
+      ],
+      currentIcon: "heart",
+      label: "Home",
+      icon: "home",
+      iconActive: "home",
+    };
+  },
+  template: `
+  <SfBottomNavigation>
+    <SfBottomNavigationItem 
+      :icon="icon" 
+      :label="label"
+      :icon-active="iconActive"
+      :is-active="currentIcon === iconActive"
+      @click="currentIcon = iconActive"
+    />
+    <SfBottomNavigationItem
+      v-for="(item, key) in items"
+      :key="key"
+      :icon="item.icon" 
+      :icon-active="item.iconActive"
+      :label="item.label"
+      icon-size="20px"
+      :is-active="currentIcon === item.iconActive"
+      @click="currentIcon = item.iconActive"
+    />
+    <SfBottomNavigationItem
+      label="Basket"
+      icon="add_to_cart"     
+      is-floating
+      />
+  </SfBottomNavigation>`,
+});
 
-storiesOf("Organisms|BottomNavigation", module)
-  .addDecorator(withKnobs)
-  .add("Common", () => ({
-    components: { SfBottomNavigation, SfIcon, SfCircleIcon },
-    props: {
-      customClass: {
-        default: options(
-          "CSS Modifiers",
-          {
-            "sf-bottom-navigation__item--active":
-              "sf-bottom-navigation__item--active"
-          },
-          "sf-bottom-navigation__item--active",
-          { display: "multi-select" },
-          "CSS Modifiers"
-        )
-      }
-    },
-    template: `<SfBottomNavigation>
-        <SfBottomNavigationItem>
-          <SfIcon icon="home" size="20px"/>
-        </SfBottomNavigationItem>
-        <SfBottomNavigationItem>
-          <SfIcon icon="menu" size="20px" style="width: 25px" />
-        </SfBottomNavigationItem>
-        <SfBottomNavigationItem :class="customClass">
-          <SfIcon icon="heart" size="20px"/>
-        </SfBottomNavigationItem>
-        <SfBottomNavigationItem>
-          <SfIcon icon="profile" size="20px"/>
-        </SfBottomNavigationItem>
-        <SfBottomNavigationItem>
-          <SfCircleIcon class="sf-bottom-navigation__floating-icon">
-            <SfIcon icon="add_to_cart" size="20px" color="white" style="margin-left: -2px; margin-right: 2px;"/>
-          </SfCircleIcon>
-        </SfBottomNavigationItem>
-      </SfBottomNavigation>`
-  }));
+export const Common = Template.bind({});
+Common.args = {};

@@ -1,158 +1,188 @@
 <template>
-  <div id="sign-in">
-    <SfModal :visible="true">
-      <transition name="fade" mode="out-in">
-        <div v-if="isLogin" key="log-in">
-          <div class="form">
-            <SfInput
-              v-model="email"
-              name="email"
-              label="Your email"
-              class="form__input"
-            />
-            <SfInput
-              v-model="password"
-              name="password"
-              label="Password"
-              type="password"
-              class="form__input"
-            />
-            <SfCheckbox
-              v-model="rememberMe"
-              name="remember-me"
-              label="Remember me"
-              class="form__checkbox"
-            />
-            <SfButton class="sf-button--full-width form__button"
-              >Login</SfButton
-            >
-          </div>
-          <div class="action">
-            <SfButton class="sf-button--text button--muted"
-              >Forgotten password?</SfButton
-            >
-          </div>
-          <div class="bottom">
-            Don't have and account yet?
-            <SfButton class="sf-button--text" @click="isLogin = false"
-              >Register today?</SfButton
-            >
-          </div>
+  <SfModal id="login" :visible="true" :title="modalTitle">
+    <transition name="sf-fade" mode="out-in">
+      <div
+        v-if="isLogIn"
+        key="log-in"
+        class="modal-content"
+        data-testid="login-modal"
+      >
+        <form class="form" @submit.prevent="() => false">
+          <SfInput
+            v-model="email"
+            name="email"
+            label="Your email"
+            class="form__element"
+            type="email"
+          />
+          <SfInput
+            v-model="password"
+            name="password"
+            label="Password"
+            type="password"
+            class="form__element"
+            :has-show-password="true"
+          />
+          <SfCheckbox
+            v-model="rememberMe"
+            name="remember-me"
+            label="Remember me"
+            class="form__element form__checkbox"
+          />
+          <SfButton
+            type="submit"
+            class="sf-button--full-width form__submit"
+            data-testid="log-in-button"
+          >
+            Log In
+          </SfButton>
+        </form>
+        <SfButton
+          class="sf-button--text action-button"
+          data-testid="forgotten-password-button"
+        >
+          Forgotten password?
+        </SfButton>
+        <div class="aside">
+          <SfHeading
+            title="Don't have an account yet?"
+            :level="3"
+            class="aside__heading"
+          />
+          <SfButton
+            class="sf-button--text"
+            data-testid="register-now-button"
+            @click="isLogIn = false"
+          >
+            Register now
+          </SfButton>
         </div>
-        <div v-else key="sign-up" class="form">
-          <div class="from">
-            <SfInput
-              v-model="email"
-              name="email"
-              label="Your email"
-              class="form__input"
-            />
-            <SfInput
-              v-model="firstName"
-              name="first-name"
-              label="First Name"
-              class="form__input"
-            />
-            <SfInput
-              v-model="lastName"
-              name="last-name"
-              label="Last Name"
-              class="form__input"
-            />
-            <SfInput
-              v-model="password"
-              name="password"
-              label="Password"
-              type="password"
-              class="form__input"
-            />
-            <SfCheckbox
-              v-model="createAccount"
-              name="create-account"
-              label="I want to create an account"
-              class="form__checkbox"
-            />
-            <SfButton class="sf-button--full-width form__button"
-              >Create an account</SfButton
-            >
-          </div>
-          <div class="action">
-            or
-            <SfButton class="sf-button--text" @click="isLogin = true"
-              >login in to your account</SfButton
-            >
-          </div>
-        </div>
-      </transition>
-    </SfModal>
-  </div>
+      </div>
+      <div
+        v-else
+        key="sign-up"
+        class="modal-content"
+        data-testid="signin-modal"
+      >
+        <form class="form" @submit.prevent="() => false">
+          <SfInput
+            v-model="firstName"
+            name="first-name"
+            label="Name"
+            class="form__element"
+          />
+          <SfInput
+            v-model="lastName"
+            name="last-name"
+            label="Last Name"
+            class="form__element"
+          />
+          <SfInput
+            v-model="email"
+            name="email"
+            label="Your email"
+            class="form__element"
+            type="email"
+          />
+          <SfInput
+            v-model="password"
+            name="password"
+            label="Password"
+            type="password"
+            class="form__element"
+          />
+          <SfButton
+            type="submit"
+            class="sf-button--full-width form__submit"
+            data-testid="create-acount-button"
+          >
+            Create an account
+          </SfButton>
+        </form>
+        <SfButton
+          class="sf-button--text action-button"
+          data-testid="log-in-account"
+          @click="isLogIn = true"
+        >
+          or Log In To Your Account
+        </SfButton>
+      </div>
+    </transition>
+  </SfModal>
 </template>
 <script>
-import { SfModal, SfInput, SfButton, SfCheckbox } from "../../../../index.js";
+import {
+  SfModal,
+  SfInput,
+  SfButton,
+  SfCheckbox,
+  SfHeading,
+} from "@storefront-ui/vue";
 export default {
   name: "Login",
-  components: { SfModal, SfInput, SfButton, SfCheckbox },
+  components: {
+    SfModal,
+    SfInput,
+    SfButton,
+    SfCheckbox,
+    SfHeading,
+  },
   data() {
     return {
-      isLogin: true,
+      isLogIn: true,
       email: "",
       password: "",
       createAccount: false,
       rememberMe: false,
       firstName: "",
-      lastName: ""
+      lastName: "",
     };
   },
+  computed: {
+    modalTitle() {
+      return this.isLogIn ? "Log In" : "Join Vue Storefront";
+    },
+  },
   watch: {
-    isLogin() {
+    isLogIn() {
       this.email = "";
       this.password = "";
       this.createAccount = false;
       this.rememberMe = false;
       this.firstName = "";
       this.lastName = "";
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
 @import "~@storefront-ui/vue/styles";
-
-@mixin for-desktop {
-  @media screen and (min-width: $desktop-min) {
-    @content;
-  }
-}
-#sign-in {
-  box-sizing: border-box;
-  @include for-desktop {
-    max-width: 1240px;
-    margin: auto;
-  }
+.modal-content,
+.aside {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .form {
-  &__input {
-    margin-bottom: $spacer-extra-big;
+  width: 100%;
+  &__element {
+    margin: var(--spacer-base) 0;
   }
   &__checkbox {
-    margin-bottom: $spacer-big;
+    margin: var(--spacer-xl) 0 var(--spacer-2xl) 0;
   }
-  &__button {
-    margin-top: $spacer-big;
+  &__submit {
+    margin: var(--spacer-xl) 0 0 0;
   }
 }
-.action {
-  margin-top: $spacer-big;
-  text-align: center;
+.action-button {
+  margin: var(--spacer-xl) 0;
 }
-.bottom {
-  padding-top: $spacer-extra-big;
-  margin-top: $spacer-extra-big;
-  border-top: 1px solid $c-light;
-  line-height: 1.6;
-  text-align: center;
-}
-.sf-button--muted {
-  color: $c-text-muted;
+.aside {
+  margin: 0 0 var(--spacer-xl) 0;
+  &__heading {
+    --heading-title-color: var(--c-primary);
+    margin: 0 0 var(--spacer-sm) 0;
+  }
 }
 </style>

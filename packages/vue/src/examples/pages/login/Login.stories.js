@@ -1,14 +1,14 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import { storiesOf } from "@storybook/vue";
 import Login from "./Login.vue";
+export default {
+  title: "Pages/Login & Sign-in",
+  component: Login,
+};
 
-storiesOf("Pages|Login & Sign in", module).add("Default", () => ({
+const Template = (args, { argTypes }) => ({
   components: { Login },
-  mounted() {
-    document.body.style.setProperty("margin", "0");
-  },
-  beforeDestroy() {
-    document.body.style.removeProperty("margin");
-  },
-  template: `<Login />`
-}));
+  props: Object.keys(argTypes),
+  template: `<Login />`,
+});
+
+export const Common = Template.bind({});
+Common.args = {};

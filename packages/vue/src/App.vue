@@ -12,8 +12,8 @@ import Playground from "./Playground.vue";
 export default Vue.extend({
   name: "app",
   components: {
-    Playground
-  }
+    Playground,
+  },
 });
 </script>
 

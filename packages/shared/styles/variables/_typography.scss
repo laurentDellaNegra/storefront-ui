@@ -1,52 +1,32 @@
-// Font family
-$body-font-family-primary: 'Roboto', serif !default;
-$body-font-family-secondary: 'Raleway', sans-serif !default;
-
-// Font weight
-$body-font-weight-primary: 300 !default;
-$body-font-weight-secondary: 400 !default;
-
-// Font sizes
-$font-size-extra-small-desktop: 0.75rem !default;
-$font-size-small-desktop: 0.875rem !default;
-$font-size-regular-desktop: 1rem !default;
-$font-size-big-desktop: 1.125rem !default;
-$font-size-extra-big-desktop: 1.5rem !default;
-
-$font-size-extra-small-mobile: 0.625rem !default;
-$font-size-small-mobile: 0.75rem !default;
-$font-size-regular-mobile: 0.875rem !default;
-$font-size-big-mobile: 1rem !default;
-$font-size-extra-big-mobile: 1.125rem !default;
-
-// Base font size
-$body-font-size-desktop: $font-size-regular-desktop !default;
-$body-font-size-mobile: $font-size-regular-mobile !default;
-
-// Heading font family
-$heading-font-family: $body-font-family-secondary;
-
-// Heading font size
-$h1-font-size-desktop: 2.25rem !default;
-$h2-font-size-desktop: 1.5rem !default;
-$h3-font-size-desktop: 1.125rem !default;
-$h4-font-size-desktop: 1.125rem !default;
-$h5-font-size-desktop: 1.125rem !default;
-
-$h1-font-size-mobile: 1.125rem !default;
-$h2-font-size-mobile: 1rem !default;
-$h3-font-size-mobile: 1rem !default;
-$h4-font-size-mobile: 1rem !default;
-$h5-font-size-desktop: 0.875rem !default;
-
-// Heading font weight
-$h1-font-weight-desktop: 500 !default;
-$h2-font-weight-desktop: 500 !default;
-$h3-font-weight-desktop: 500 !default;
-$h4-font-weight-desktop: 500 !default;
-
-$h1-font-weight-mobile: 500 !default;
-$h2-font-weight-mobile: 500 !default;
-$h3-font-weight-mobile: 500 !default;
-$h4-font-weight-mobile: 500 !default;
-
+@import "../helpers";
+:root {
+  // font-family
+  --font-family--primary: "Roboto", serif;
+  --font-family--secondary: "Raleway", sans-serif;
+  //font-weight
+  --font-weight--light: 300;
+  --font-weight--normal: 400;
+  --font-weight--medium: 500;	
+  --font-weight--semibold: 600;
+  --font-weight--bold: 700;
+  // font-size
+  --font-size--xs: 0.75rem; //12px
+  --font-size--sm: 0.875rem; //14px
+  --font-size--base: 1rem; //16px
+  --font-size--lg: 1.125rem; //18px
+  // heading font-size
+  --h1-font-size: 1.5rem; //24px
+  --h2-font-size: 1.5rem; //24px
+  --h3-font-size: var(--font-size--lg); //18px
+  --h4-font-size: var(--font-size--lg); //18px
+  --h5-font-size: var(--font-size--base); //16px
+  --h6-font-size: var(--font-size--base); //16px
+  @include for-desktop {
+    --h1-font-size: 2.625rem; //42px
+    --h2-font-size: 2.25rem; //36px
+    --h3-font-size: 1.625rem; //26px
+    --h4-font-size: 1.25rem; //20px
+    --h5-font-size: var(--font-size--base); //16px
+    --h6-font-size: var(--font-size--sm); //14px
+  }	  
+}

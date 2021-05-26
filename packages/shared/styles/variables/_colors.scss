@@ -1,129 +1,77 @@
-$c-black: hsl(0, 0%, 0%) !default;
-$c-white: hsl(0, 0%, 100%) !default;
+@import "../helpers/colors";
+:root {
+  @include generate-color-variants(--c-black, #1d1f22);
+  --c-white: #ffffff;
+  // Internal color variables
+  /* Should NOT be used directly for theming or component styles */
+  @include generate-color-variants(--_c-green-primary, #5ece7b);
+  @include generate-color-variants(--_c-green-secondary, #9ee2b0);
+  @include generate-color-variants(--_c-dark-primary, #1d1f22);
+  @include generate-color-variants(--_c-dark-secondary, #43464E);
+  @include generate-color-variants(--_c-gray-primary, #72757E);
+  @include generate-color-variants(--_c-gray-secondary, #8D8F9A);
+  @include generate-color-variants(--_c-gray-accent, #e0e0e1);
+  @include generate-color-variants(--_c-light-primary, #f1f2f3);
+  @include generate-color-variants(--_c-light-secondary, #ffffff);
+  @include generate-color-variants(--_c-red-primary, #d12727);
+  @include generate-color-variants(--_c-red-secondary, #fcede8);
+  @include generate-color-variants(--_c-yellow-primary, #ecc713);
+  @include generate-color-variants(--_c-yellow-secondary, #f6e389);
+  @include generate-color-variants(--_c-blue-primary, #0468DB);
+  @include generate-color-variants(--_c-blue-secondary, #e1f4fe);
 
-// Internal color variables
-// Should NOT be used directly for theming or component styles
-$_c-green-primary: hsl(136, 53%, 59%);
-$_c-green-secondary: hsl(136, 54%, 75%);
-$_c-dark-primary: hsl(216, 8%, 12%);
-$_c-dark-secondary: hsl(226, 5%, 48%);
-$_c-gray-primary: hsl(228, 9%, 45%);
-$_c-gray-secondary: hsl(230, 5%, 76%);
-$_c-light-primary: hsl(210, 8%, 95%);
-$_c-light-secondary: hsl(0, 0%, 100%);
-$_c-pink-primary: hsl(359, 77%, 51%);
-$_c-pink-secondary: hsl(7, 100%, 98%);
-$_c-yellow-primary: hsl(50, 100%, 62%);
-$_c-yellow-secondary: hsl(50, 100%, 96%);
-$_c-blue-primary: hsl(210, 50%, 60%);
-$_c-blue-secondary: hsl(216, 33%, 97%);
+  /* Theme color variables */
+  // Body and text defaults
+  --c-body: var(--_c-light-secondary);
+  --c-text: var(--_c-dark-primary);
+  --c-text-muted: var(--_c-gray-primary);
+  --c-text-disabled: var(--_c-gray-accent);
+  --c-link: var(--_c-dark-secondary);
+  --c-link-hover: var(--c-black);
 
-/* START: Theme color variables */
+  /* Brand colors */
+  // Primary
+  /* Should be used to drive attention to the main tasks that should be done while using the app.
+   * It is meant to be used in major interactive elements of the page. */
+  @include assign-color-variants(--c-primary, --_c-green-primary);
+  --c-primary-variant: var(--_c-green-secondary);
+  --c-on-primary: var(--_c-light-secondary);
+  // Secondary
+  /* Should be used to drive attention in the elements with relevant info,
+   * but where the user is not intended to take action. */
+  @include assign-color-variants(--c-secondary, --_c-dark-primary);
+  --c-secondary-variant: var(--_c-dark-secondary);
+  --c-on-secondary: var(--_c-light-secondary);
 
-// Body and text defaults
-$c-body: $c-white !default;
-$c-text: $_c-dark-primary !default;
-$c-text-muted: $_c-gray-primary !default;
-$c-link: $_c-dark-secondary !default;
-$c-link-hover: $c-black !default;
+  /* Base colors*/
+  // Light
+  @include assign-color-variants(--c-light, --_c-light-primary);
+  --c-light-variant: var(--_c-light-secondary);
+  --c-on-light: var(--c-black);
+  // Gray
+  @include assign-color-variants(--c-gray, --_c-gray-primary);
+  --c-gray-variant: var(--_c-gray-secondary);
+  --c-on-gray: var(--c-black);
+  // Dark
+  @include assign-color-variants(--c-dark, --_c-dark-primary);
+  --c-dark-variant: var(--_c-dark-secondary);
+  --c-on-dark: var(--_c-light-secondary);
 
-/* Brand colors */
-
-// Primary
-/* Should be used to drive attention to the main tasks that should be done while using the app.
- * It is meant to be used in major interactive elements of the page. */
-$c-primary: $_c-green-primary !default;
-$c-primary-variant: $_c-green-secondary !default;
-$c-on-primary: $c-white !default;
-
-// Secondary
-/* Should be used to drive attention in the elements with relevant info,
- * but where the user is not intended to take action. */
-$c-secondary: $_c-dark-primary !default;
-$c-secondary-variant: $_c-dark-secondary !default;
-$c-on-secondary: $c-white !default;
-
-/* Base colors */
-
-// Light
-$c-light: $_c-light-primary !default;
-$c-light-variant: $_c-light-secondary !default;
-$c-on-light: $c-black !default;
-
-// Gray
-$c-gray: $_c-gray-primary !default;
-$c-gray-variant: $_c-gray-secondary !default;
-$c-on-gray: $c-black !default;
-
-// Dark
-$c-dark: $_c-dark-primary !default;
-$c-dark-variant: $_c-dark-secondary !default;
-$c-on-dark: $c-white !default;
-
-/* Context colors */
-
-// Info
-$c-info: $_c-blue-primary !default;
-$c-info-variant: $_c-blue-secondary !default;
-$c-on-info: $c-white !default;
-
-// Success
-$c-success: $_c-green-primary !default;
-$c-success-variant: $_c-green-secondary !default;
-$c-on-success: $c-white !default;
-
-// Warning
-$c-warning: $_c-yellow-primary !default;
-$c-warning-variant: $_c-yellow-secondary !default;
-$c-on-warning: $c-white !default;
-
-// Danger
-$c-danger: $_c-pink-primary !default;
-$c-danger-variant: $_c-pink-secondary !default;
-$c-on-danger: $c-white !default;
-
-/* END: Theme color variables */
-
-// Map theme colors palette
-$colors-map: (
-  "primary": (
-    "bg": $c-primary,
-    "variant": $c-primary-variant,
-    "text": $c-on-primary
-  ),
-  "secondary": (
-    "bg": $c-secondary,
-    "variant": $c-secondary-variant,
-    "text": $c-on-secondary
-  ),
-  "light": (
-    "bg": $c-light,
-    "variant": $c-light-variant,
-    "text": $c-on-light
-  ),
-  "dark": (
-    "bg": $c-dark,
-    "variant": $c-dark-variant,
-    "text": $c-on-dark
-  ),
-  "info": (
-    "bg": $c-info,
-    "variant": $c-info-variant,
-    "text": $c-on-info
-  ),
-  "success": (
-    "bg": $c-success,
-    "variant": $c-success-variant,
-    "text": $c-on-success
-  ),
-  "warning": (
-    "bg": $c-warning,
-    "variant": $c-warning-variant,
-    "text": $c-on-warning
-  ),
-  "danger": (
-    "bg": $c-danger,
-    "variant": $c-danger-variant,
-    "text": $c-on-danger
-  )
-);
+  /* Context colors */
+  // Info
+  @include assign-color-variants(--c-info, --_c-blue-primary);
+  --c-info-variant: var(--_c-blue-secondary);
+  --c-on-info: var(--_c-light-secondary);
+  // Success
+  @include assign-color-variants(--c-success, --_c-green-primary);
+  --c-success-variant: var(--_c-green-secondary);
+  --c-on-success: var(--_c-light-secondary);
+  // Waring
+  @include assign-color-variants(--c-warning, --_c-yellow-primary);
+  --c-warning-variant: var(--_c-yellow-secondary);
+  --c-on-warning: var(--_c-light-secondary);
+  // Danger
+  @include assign-color-variants(--c-danger, --_c-red-primary);
+  --c-danger-variant: var(--_c-red-secondary);
+  --c-on-danger: var(--_c-light-secondary);
+}
